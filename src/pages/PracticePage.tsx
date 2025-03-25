@@ -147,8 +147,6 @@ export default function PracticePage() {
           </CardContent>
         </Card>
       </div>
-
-      <NavBar activeItem="learn" />
     </div>
   )
 }

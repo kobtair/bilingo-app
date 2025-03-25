@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "../components/ui/button"
 import logo from "../assets/logo.png"
+import NavBar from "@/components/NavBar"
 
 export default function WelcomePage() {
   const navigate = useNavigate()
@@ -49,25 +50,6 @@ export default function WelcomePage() {
           onClick={() => navigate("/register")}
         >
           Create New Account
-        </Button>
-      </div>
-
-      <div className="absolute bottom-0 w-full bg-blue-800 flex justify-around py-4">
-        <Button variant="ghost" className="text-white flex flex-col items-center">
-          <div className="w-6 h-6">🏠</div>
-          <span className="text-xs">Home</span>
-        </Button>
-        <Button variant="ghost" className="text-white flex flex-col items-center">
-          <div className="w-6 h-6">📚</div>
-          <span className="text-xs">Learn</span>
-        </Button>
-        <Button variant="ghost" className="text-white flex flex-col items-center">
-          <div className="w-6 h-6">📈</div>
-          <span className="text-xs">Progress</span>
-        </Button>
-        <Button variant="ghost" className="text-white flex flex-col items-center">
-          <div className="w-6 h-6">👤</div>
-          <span className="text-xs">Profile</span>
         </Button>
       </div>
     </div>

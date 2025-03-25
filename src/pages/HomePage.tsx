@@ -64,8 +64,6 @@ export default function HomePage() {
           </Card>
         </div>
       </div>
-
-      <NavBar activeItem="home" />
     </div>
   )
 }

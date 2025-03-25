@@ -201,7 +201,6 @@ export default function LessonDetailPage() {
         ))}
       </div>
 
-      <NavBar activeItem="learn" />
     </div>
   )
 }

@@ -90,8 +90,6 @@ export default function ProgressPage() {
           </CardContent>
         </Card>
       </div>
-
-      <NavBar activeItem="progress" />
     </div>
   )
 }

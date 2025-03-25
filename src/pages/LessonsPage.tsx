@@ -63,8 +63,6 @@ export default function LessonsPage() {
           </Card>
         ))}
       </div>
-
-      <NavBar activeItem="learn" />
     </div>
   )
 }

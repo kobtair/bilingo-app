@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { Button } from "../components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { BookOpen, Mic, TrendingUp } from "lucide-react"
-import NavBar from "../components/NavBar"
+
 
 export default function HomePage() {
   const navigate = useNavigate()

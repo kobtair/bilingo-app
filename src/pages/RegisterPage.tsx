@@ -1,49 +1,68 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { ArrowLeft } from "lucide-react"
-import { Button } from "../components/ui/button"
-import { Input } from "../components/ui/input"
-import { Label } from "../components/ui/label"
-import { register } from "../api/auth"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { register, signInWithGoogle } from "../api/auth";
 
 export default function RegisterPage() {
-  const navigate = useNavigate()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [error, setError] = useState("")
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [fullName, setFullName] = useState("");
 
   const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError("")
-
-    if (password !== confirmPassword) {
-      setError("Passwords do not match")
-      return
-    }
-
     try {
-      const response = await register(email, password)
+      e.preventDefault();
+      setError("");
+
+      if (password !== confirmPassword) {
+        setError("Passwords do not match");
+        return;
+      }
+
+      const response = await register(email, fullName, password);
 
       if (response.success) {
-        navigate("/language-selection")
+        navigate("/language-selection");
       } else {
-        setError(response.message || "Registration failed")
+        setError(response.message || "Registration failed");
       }
     } catch (error) {
-      console.error("Registration error:", error)
-      setError("An error occurred during registration")
+      console.error("Registration error:", error);
+      setError("An error occurred during registration");
     }
-  }
+  };
+
+  // const handleGoogleSignIn = async () => {
+  //   try {
+  //     const response = await signInWithGoogle()
+  //     if (response.success) {
+  //       navigate("/home")
+  //     } else {
+  //       setError(response.message || "Google sign-in failed")
+  //     }
+  //   } catch (error) {
+  //     console.error("Google sign-in error:", error)
+  //     setError("An error occurred during Google sign-in")
+  //   }
+  // }
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-900 to-blue-400">
       <div className="p-4">
-        <Button variant="ghost" className="text-white p-2" onClick={() => navigate(-1)}>
+        <Button
+          variant="ghost"
+          className="text-white p-2"
+          onClick={() => navigate(-1)}
+        >
           <ArrowLeft className="h-6 w-6" />
         </Button>
       </div>
@@ -51,6 +70,20 @@ export default function RegisterPage() {
       <div className="flex-1 flex items-center justify-center">
         <div className="w-full max-w-md bg-white rounded-lg p-8 m-4">
           <form onSubmit={handleRegister} className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="fullName" className="text-2xl font-bold">
+                Full Name
+              </Label>
+              <Input
+                id="fullName"
+                type="text"
+                placeholder="Your Full Name"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                required
+              />
+            </div>
+
             <div className="space-y-2">
               <Label htmlFor="email" className="text-2xl font-bold">
                 Email
@@ -95,13 +128,26 @@ export default function RegisterPage() {
 
             {error && <div className="text-red-500 text-center">{error}</div>}
 
-            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6">
+            <Button
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6"
+            >
               Register
             </Button>
           </form>
+
+          {/* <div className="mt-4 text-center">
+            <Button
+              variant="outline"
+              className="w-full flex items-center justify-center py-4"
+              onClick={handleGoogleSignIn}
+            >
+              <img src="/google-icon.svg" alt="Google" className="h-6 w-6 mr-2" />
+              Sign in with Google
+            </Button>
+          </div> */}
         </div>
       </div>
     </div>
-  )
+  );
 }
-

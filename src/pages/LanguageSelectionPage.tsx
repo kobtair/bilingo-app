@@ -3,11 +3,14 @@
 import { useNavigate } from "react-router-dom"
 import { ArrowLeft, ChevronRight } from "lucide-react"
 import { Button } from "../components/ui/button"
+import chinaFlag from "../assets/chn.png"
+import ukFlag from "../assets/eng.png"
+import pakistanFlag from "../assets/pak.png"
 
 const languages = [
-  { id: "urdu", name: "Urdu", flag: "/flags/pakistan.png" },
-  { id: "chinese", name: "Chinese", flag: "/flags/china.png" },
-  { id: "english", name: "English", flag: "/flags/uk.png" },
+  { id: "urdu", name: "Urdu", flag: pakistanFlag },
+  { id: "chinese", name: "Chinese", flag: chinaFlag},
+  { id: "english", name: "English", flag: ukFlag},
 ]
 
 export default function LanguageSelectionPage() {

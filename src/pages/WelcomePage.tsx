@@ -4,11 +4,10 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "../components/ui/button"
 import logo from "../assets/logo.png"
-import NavBar from "@/components/NavBar"
 
 export default function WelcomePage() {
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     // Simulate loading time for splash screen

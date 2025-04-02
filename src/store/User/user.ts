@@ -1,19 +1,19 @@
 import { create } from 'zustand'
 
-type UserState = {
- isLogged: boolean
- login: () => void
+export type UserState = {
+  user: {
+    email: string,
+    name: string,
+    role: string,
+    points: string
+  } | null
+  setUser: (user: UserState['user']) => void
   logout: () => void
 }
 
-const useUserStore = create((set: any) => ({
- isLogged: false,
-  login: () => {
-    
-    set({ isLogged: true })
-  }, 
-  logout: () => {
-    set({ isLogged: false })
-  }
+export const useUserStore = create((set: any) => ({
+  user: null,
+  setUser: (user: UserState['user']) => set({ user }),
+  logout: () => set({ user: null })
 }))
 

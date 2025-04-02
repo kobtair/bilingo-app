@@ -1,10 +1,13 @@
 "use client"
 
+import { useUserStore } from "@/store/User/user";
 import { NavLink } from "react-router-dom"
 // import { Button } from "./ui/button"
 // import { useNavigate } from "react-router-dom"
 
 export default function NavBar() {
+  const {user} = useUserStore()
+  if (!user) return
   return (
     <div className="w-full bg-blue-800 flex justify-around py-4 fixed bottom-0 left-0">
       <NavLink

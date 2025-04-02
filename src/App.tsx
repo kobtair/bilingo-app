@@ -9,6 +9,7 @@ import LessonDetailPage from "./pages/LessonDetailPage"
 import ProgressPage from "./pages/ProgressPage"
 import PracticePage from "./pages/PracticePage"
 import ForgotPasswordPage from "./pages/ForgotPasswordPage"
+import ProfilePage from "./pages/ProfilePage"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Route path="/progress" element={<ProgressPage />} />
       <Route path="/practice" element={<PracticePage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
     </Routes>
   )
 }

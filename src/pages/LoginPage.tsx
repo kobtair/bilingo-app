@@ -8,12 +8,15 @@ import { ArrowLeft } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Input } from "../components/ui/input"
 import { login } from "../api/auth"
+import { useUserStore } from "@/store/User/user"
 
 export default function LoginPage() {
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
+
+  const {setUser} = useUserStore();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -23,8 +26,7 @@ export default function LoginPage() {
       const response = await login(email, password)
 
       if (response.success) {
-        // Store user info in localStorage or context
-        localStorage.setItem("user", JSON.stringify(response.user))
+        setUser(response.user??null)
         navigate("/home")
       } else {
         setError(response.message || "Login failed")
@@ -50,7 +52,7 @@ export default function LoginPage() {
             <div className="space-y-2">
               <Input
                 type="email"
-                placeholder="Value"
+                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -61,7 +63,7 @@ export default function LoginPage() {
               <h2 className="text-2xl font-bold">Password</h2>
               <Input
                 type="password"
-                placeholder="Value"
+                placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required

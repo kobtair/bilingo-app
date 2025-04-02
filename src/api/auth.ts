@@ -4,7 +4,7 @@ import { UserState } from "@/store/User/user"
 interface AuthResponse {
   success: boolean;
   message?: string;
-  user?: UserState
+  user?: UserState["user"]
 }
 
 const api = import.meta.env.VITE_BACKEND_API
@@ -58,11 +58,17 @@ export async function register(email: string, name: string, password: string): P
       success: false,
       message: "Registration failed",
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Registration error:", error)
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        success: false,
+        message: error.response.data || "An error occurred during registration",  
+      }
+    }
     return {
       success: false,
-      message: error.response.data || "An error occurred during registration",  
+      message: "An unexpected error occurred during registration",  
     }
   }
 }

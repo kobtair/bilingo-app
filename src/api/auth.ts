@@ -8,12 +8,7 @@ interface AuthResponse {
 }
 
 const api = import.meta.env.VITE_BACKEND_API
-
-// In-memory user database for demo purposes
-const users: { email: string; password: string }[] = [{ email: "test@example.com", password: "password123" }]
-
 export async function login(email: string, password: string): Promise<AuthResponse> {
-  // Simulate API call delay
   const response = await  axios.post<AuthResponse>(`${api}/login`, {
     email, password
   })
@@ -33,10 +28,10 @@ export async function login(email: string, password: string): Promise<AuthRespon
   }
 }
 
-export async function register(email: string, name: string, password: string): Promise<AuthResponse> {
+export async function register(email: string, name: string, password: string, primaryLanguage: string): Promise<AuthResponse> {
   try {
     const response = await axios.post<AuthResponse>(`${api}/register`, {
-      email, name, password
+      email, name, password, primaryLanguage
     })
 
     const user = response.data;
@@ -73,24 +68,23 @@ export async function register(email: string, name: string, password: string): P
   }
 }
 
-export async function resetPassword(email: string): Promise<AuthResponse> {
-  // Simulate API call delay
-  await new Promise((resolve) => setTimeout(resolve, 500))
-
-  // Check if user exists
-  const user = users.find((u) => u.email === email)
-
-  if (!user) {
+export async function resetPassword(email: string){
+  try {
+    const response = await axios.post<AuthResponse>(`${api}/reset-password`, {
+      email
+    })
+    const user = response.data;
+    if (user && user.user) {
+      return {
+        success: true,
+      }
+    } }
+  catch (error) {
+    console.error("Reset password error:", error)
     return {
       success: false,
-      message: "User not found",
+      message: "An error occurred during password reset",
     }
-  }
-
-  // In a real app, this would send an email with a reset link
-  return {
-    success: true,
-    message: "Password reset email sent",
   }
 }
 

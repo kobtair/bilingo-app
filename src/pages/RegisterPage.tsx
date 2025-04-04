@@ -17,6 +17,7 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [fullName, setFullName] = useState("");
+  const [primaryLanguage, setPrimaryLanguage] = useState("english");
 
   const handleRegister = async (e: React.FormEvent) => {
     try {
@@ -28,7 +29,7 @@ export default function RegisterPage() {
         return;
       }
 
-      const response = await register(email, fullName, password);
+      const response = await register(email, fullName, password, primaryLanguage);
 
       if (response.success) {
         navigate("/language-selection");
@@ -40,20 +41,6 @@ export default function RegisterPage() {
       setError("An error occurred during registration");
     }
   };
-
-  // const handleGoogleSignIn = async () => {
-  //   try {
-  //     const response = await signInWithGoogle()
-  //     if (response.success) {
-  //       navigate("/home")
-  //     } else {
-  //       setError(response.message || "Google sign-in failed")
-  //     }
-  //   } catch (error) {
-  //     console.error("Google sign-in error:", error)
-  //     setError("An error occurred during Google sign-in")
-  //   }
-  // }
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-900 to-blue-400">
@@ -82,6 +69,23 @@ export default function RegisterPage() {
                 onChange={(e) => setFullName(e.target.value)}
                 required
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="primaryLanguage" className="text-2xl font-bold">
+                Primary Language
+              </Label>
+              <select
+                id="primaryLanguage"
+                className="border rounded px-3 py-2"
+                value={primaryLanguage}
+                onChange={(e) => setPrimaryLanguage(e.target.value)}
+                required
+              >
+                <option value="chinese">Chinese</option>
+                <option value="english">English</option>
+                <option value="urdu">Urdu</option>
+              </select>
             </div>
 
             <div className="space-y-2">
@@ -135,17 +139,6 @@ export default function RegisterPage() {
               Register
             </Button>
           </form>
-
-          {/* <div className="mt-4 text-center">
-            <Button
-              variant="outline"
-              className="w-full flex items-center justify-center py-4"
-              onClick={handleGoogleSignIn}
-            >
-              <img src="/google-icon.svg" alt="Google" className="h-6 w-6 mr-2" />
-              Sign in with Google
-            </Button>
-          </div> */}
         </div>
       </div>
     </div>

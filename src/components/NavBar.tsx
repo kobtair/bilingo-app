@@ -2,6 +2,7 @@
 
 import { useUserStore } from "@/store/User/user";
 import { NavLink } from "react-router-dom"
+import { Home, Book, ChartArea, User } from "lucide-react";
 // import { Button } from "./ui/button"
 // import { useNavigate } from "react-router-dom"
 
@@ -14,28 +15,28 @@ export default function NavBar() {
         to="/home"
         className={({ isActive }) => `text-white flex flex-col items-center ${isActive ? "bg-blue-700" : ""}`}
       >
-        <div className="w-6 h-6">🏠</div>
+        <div className="w-6 h-6"><Home /></div>
         <span className="text-xs">Home</span>
       </NavLink>
       <NavLink
         to="/lessons"
         className={({ isActive }) => `text-white flex flex-col items-center ${isActive ? "bg-blue-700" : ""}`}
       >
-        <div className="w-6 h-6">📚</div>
+        <div className="w-6 h-6"><Book /></div>
         <span className="text-xs">Learn</span>
       </NavLink>
       <NavLink
         to="/progress"
         className={({ isActive }) => `text-white flex flex-col items-center ${isActive ? "bg-blue-700" : ""}`}
       >
-        <div className="w-6 h-6">📈</div>
+        <div className="w-6 h-6"><ChartArea /></div>
         <span className="text-xs">Progress</span>
       </NavLink>
       <NavLink
         to="/profile"
         className={({ isActive }) => `text-white flex flex-col items-center ${isActive ? "bg-blue-700" : ""}`}
       >
-        <div className="w-6 h-6">👤</div>
+        <div className="w-6 h-6"><User /></div>
         <span className="text-xs">Profile</span>
       </NavLink>
     </div>

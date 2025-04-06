@@ -27,7 +27,7 @@ export default function LoginPage() {
 
       if (response.success) {
         setUser(response.user??null)
-        navigate("/home")
+        navigate("/courses")
       } else {
         setError(response.message || "Login failed")
       }
@@ -76,11 +76,11 @@ export default function LoginPage() {
               Sign In
             </Button>
 
-            <div className="text-center">
+            {/* <div className="text-center">
               <Button variant="link" className="text-blue-600" onClick={() => navigate("/forgot-password")}>
                 Forgot password?
               </Button>
-            </div>
+            </div> */}
           </form>
         </div>
       </div>

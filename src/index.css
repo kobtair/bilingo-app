@@ -118,4 +118,14 @@
     @apply bg-background text-foreground;
     padding-bottom: 70px; /* Adjust this value to match the height of the NavBar */
   }
+  html, body, #root {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* Matches the App background */
+    height: 100%; /* Ensure full height for proper layout */
+  }
+  #root {
+    display: flex; /* Ensures the app fills the viewport */
+    flex-direction: column;
+  }
 }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { ArrowLeft, ChevronRight } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import { Button } from "../components/ui/button"
 
 export default function CourseSelectionPage() {
@@ -21,33 +21,43 @@ export default function CourseSelectionPage() {
 
   const selectCourse = (courseId: string) => {
     localStorage.setItem("selectedCourse", courseId)
-    navigate("/home")
+    navigate(`/courses/${courseId}/`)
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-900 to-blue-400">
-      <div className="p-4 flex items-center">
+    <div className="min-h-screen bg-gradient-to-b from-blue-900 to-blue-400">
+      <header className="p-4 flex items-center space-x-4">
         <Button variant="ghost" className="text-white p-2" onClick={() => navigate(-1)}>
           <ArrowLeft className="h-6 w-6" />
         </Button>
-        <h1 className="text-2xl font-bold text-white ml-4">Choose Course</h1>
-      </div>
+        <div>
+          <h1 className="text-3xl font-bold text-white">Course Selection</h1>
+          <p className="text-white">Select a course and begin your journey.</p>
+        </div>
+      </header>
 
-      <div className="flex-1 p-4 space-y-4">
-        {courses.map((course: any) => (
-          <Button
-            key={course.id}
-            variant="outline"
-            className="w-full bg-white hover:bg-gray-100 flex items-center justify-between p-6 rounded-lg"
-            onClick={() => selectCourse(course.id)}
-          >
-            <div className="flex items-center">
-              <span className="text-xl">{course.title}</span>
-            </div>
-            <ChevronRight className="h-6 w-6 text-blue-600" />
-          </Button>
-        ))}
-      </div>
+      <main className="p-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {courses.map((course: any) => {
+            const imageUrl = course.image ? course.image : `https://picsum.photos/seed/${course.id}/300/200`
+            return (
+              <div
+                key={course.id}
+                onClick={() => selectCourse(course.id)}
+                className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg transition-shadow"
+              >
+                <img src={imageUrl} alt={course.title} className="w-full h-40 object-cover rounded-t-lg" />
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold text-gray-800">{course.title}</h3>
+                  <p className="text-gray-600 mt-2">
+                    {course.description ? course.description : "No description available."}
+                  </p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </main>
     </div>
   )
 }

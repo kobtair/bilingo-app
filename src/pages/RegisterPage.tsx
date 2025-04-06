@@ -32,7 +32,7 @@ export default function RegisterPage() {
       const response = await register(email, fullName, password, primaryLanguage);
 
       if (response.success) {
-        navigate("/language-selection");
+        navigate("/courses");
       } else {
         setError(response.message || "Registration failed");
       }

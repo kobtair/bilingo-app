@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom"
 import { ArrowLeft, Mic, Play, Square } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
-import NavBar from "../components/NavBar"
 
 export default function PracticePage() {
   const navigate = useNavigate()

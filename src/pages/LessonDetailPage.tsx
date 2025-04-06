@@ -7,7 +7,6 @@ import { useNavigate, useParams } from "react-router-dom"
 import { ArrowLeft, Play } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
-import NavBar from "../components/NavBar"
 import { updateProgress } from "../api/progress"
 
 const lessonData = {
@@ -129,9 +128,9 @@ export default function LessonDetailPage() {
                 <strong>Instructions:</strong> {step.instructions}
               </p>
 
-              {step.details && (
+              {(step as any).details && (
                 <ul className="list-disc pl-5 space-y-1">
-                  {step.details.map((detail, i) => (
+                  {(step as any).details.map((detail: any, i: number) => (
                     <li key={i}>{detail}</li>
                   ))}
                 </ul>
@@ -147,23 +146,23 @@ export default function LessonDetailPage() {
                 </>
               )}
 
-              {step.repeatInstructions && (
+              {(step as any).repeatInstructions && (
                 <p>
-                  <strong>{step.repeatInstructions}</strong>
+                  <strong>{(step as any).repeatInstructions}</strong>
                 </p>
               )}
 
-              {step.repeats && (
+              {(step as any).repeats && (
                 <ul className="list-disc pl-5 space-y-1">
-                  {step.repeats.map((repeat, i) => (
+                  {(step as any).repeats.map((repeat: any, i: number) => (
                     <li key={i}>{repeat}</li>
                   ))}
                 </ul>
               )}
 
-              {step.audioInstructions && (
+              {(step as any).audioInstructions && (
                 <div className="space-y-2">
-                  <p>{step.audioInstructions}</p>
+                  <p>{(step as any).audioInstructions}</p>
                   <div className="flex items-center space-x-2">
                     <Button size="icon" onClick={playAudio} disabled={isPlaying}>
                       <Play className="h-4 w-4" />
@@ -184,7 +183,7 @@ export default function LessonDetailPage() {
                         </div>
                       </div>
                     </div>
-                    <audio ref={audioRef} src={step.audioUrl} />
+                    <audio ref={audioRef} src={(step as any).audioUrl} />
                   </div>
                 </div>
               )}

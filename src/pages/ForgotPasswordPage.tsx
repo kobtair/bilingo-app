@@ -23,10 +23,10 @@ export default function ForgotPasswordPage() {
     try {
       const response = await resetPassword(email)
 
-      if (response.success) {
+      if (response && response.success) {
         setSubmitted(true)
       } else {
-        setError(response.message || "Failed to send reset email")
+        setError(response?.message || "Failed to send reset email")
       }
     } catch (error) {
       console.error("Error:", error)

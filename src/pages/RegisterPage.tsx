@@ -8,7 +8,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { register, signInWithGoogle } from "../api/auth";
+import { register } from "@/api/auth";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [fullName, setFullName] = useState("");
-  const [primaryLanguage, setPrimaryLanguage] = useState("english");
+  const [primaryLanguage, setPrimaryLanguage] = useState<"english" | "chinese">("english");
 
   const handleRegister = async (e: React.FormEvent) => {
     try {
@@ -79,12 +79,12 @@ export default function RegisterPage() {
                 id="primaryLanguage"
                 className="border rounded px-3 py-2"
                 value={primaryLanguage}
-                onChange={(e) => setPrimaryLanguage(e.target.value)}
+                onChange={(e) => setPrimaryLanguage(e.target.value as "english" | "chinese")}
                 required
               >
                 <option value="chinese">Chinese</option>
                 <option value="english">English</option>
-                <option value="urdu">Urdu</option>
+                {/* <option value="urdu">Urdu</option> */}
               </select>
             </div>
 

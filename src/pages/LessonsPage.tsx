@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom"
 import { ArrowLeft, Play } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../components/ui/card"
-import NavBar from "../components/NavBar"
 
 const lessons = [
   {

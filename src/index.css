@@ -116,5 +116,6 @@
   }
   body {
     @apply bg-background text-foreground;
+    padding-bottom: 70px; /* Adjust this value to match the height of the NavBar */
   }
 }

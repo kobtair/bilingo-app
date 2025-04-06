@@ -2,6 +2,7 @@ import { LogOut, CheckCircle} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useUserStore } from "@/store/User/user";
 import { useNavigate } from "react-router";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function ProfilePage() {
   const {user, logout} = useUserStore();
@@ -23,12 +24,11 @@ export default function ProfilePage() {
         {/* Avatar and User Info */}
         <div className="w-full flex items-center mb-6">
           <div className="relative">
-            <div className="w-16 h-16 rounded-full bg-blue-900 flex items-center justify-center text-white text-xl font-bold">
-              DD
-            </div>
-            <div className="absolute -bottom-1 -right-1 bg-blue-500 rounded-full p-0.5">
-              <CheckCircle className="w-4 h-4 text-white" />
-            </div>
+          <Avatar>
+      <AvatarImage src={user?.profileImage} alt="@shadcn" />
+      <AvatarFallback>{user?.name[0]}</AvatarFallback>
+    </Avatar>
+            
           </div>
           <div className="ml-4">
             <h2 className="text-lg font-semibold">{user?.name}</h2>

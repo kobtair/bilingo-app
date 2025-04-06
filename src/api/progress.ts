@@ -20,10 +20,17 @@ const userProgress: Record<string, ProgressData> = {
 }
 
 export async function getUserProgress(email: string): Promise<ProgressData | null> {
-  // Simulate API call delay
-  await new Promise((resolve) => setTimeout(resolve, 500))
-
-  return userProgress[email] || null
+  const backendUrl = import.meta.env.VITE_BACKEND_API;
+  try {
+    const response = await fetch(`${backendUrl}/progress?email=${encodeURIComponent(email)}`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching progress:", error);
+    return null;
+  }
 }
 
 export async function updateProgress(email: string, lessonId: number): Promise<ProgressData> {
@@ -55,5 +62,19 @@ export async function updateProgress(email: string, lessonId: number): Promise<P
   }
 
   return userProgress[email]
+}
+
+export async function getLeaderboard(): Promise<any> {
+  const backendUrl = import.meta.env.VITE_BACKEND_API;
+  try {
+    const response = await fetch(`${backendUrl}/get-leaderboard`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching leaderboard:", error);
+    return null;
+  }
 }
 

@@ -39,7 +39,7 @@ export default function CourseSelectionPage() {
       <main className="p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {courses.map((course: any) => {
-            const imageUrl = course.image ? course.image : `https://picsum.photos/seed/${course.id}/300/200`
+            const imageUrl = course.image ? course.image : `https://picsum.photos/seed/${course._id}/300/200`
             return (
               <div
                 key={course.id}

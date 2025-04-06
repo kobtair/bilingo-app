@@ -3,13 +3,21 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 
 export type UserState = {
   user: {
-    email: string,
-    name: string,
-    role: string,
-    points: string
-  } | null
-  setUser: (user: UserState['user']) => void
-  logout: () => void
+    _id: {
+      $oid: string;
+    }
+    name: string;
+    email: string;
+    profileImage: string;
+    level: string;
+    progress: number;
+    lastActive: string;
+    joinDate: string;
+    points: number;
+    status: string;
+  } | null;
+  setUser: (user: UserState['user']) => void;
+  logout: () => void;
 }
 
 export const useUserStore = create<UserState>()(
@@ -20,8 +28,8 @@ export const useUserStore = create<UserState>()(
       logout: () => set({ user: null })
     }),
     {
-      name: 'user-storage', // name of the item in the storage
-      storage: createJSONStorage(() => sessionStorage) // using sessionStorage
+      name: 'user-storage', 
+      storage: createJSONStorage(() => sessionStorage) 
     }
   )
 )

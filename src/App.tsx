@@ -43,6 +43,14 @@ function App() {
               }
             />
             <Route
+              path="/forgot-password"
+              element={
+                <AnimatedPage>
+                  <ForgotPasswordPage />
+                </AnimatedPage>
+              }
+            />
+            <Route
               path="/register"
               element={
                 <AnimatedPage>
@@ -99,14 +107,6 @@ function App() {
               element={
                 <AnimatedPage>
                   <PracticePage />
-                </AnimatedPage>
-              }
-            />
-            <Route
-              path="/forgot-password"
-              element={
-                <AnimatedPage>
-                  <ForgotPasswordPage />
                 </AnimatedPage>
               }
             />

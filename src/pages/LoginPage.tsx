@@ -76,11 +76,11 @@ export default function LoginPage() {
               Sign In
             </Button>
 
-            {/* <div className="text-center">
-              <Button variant="link" className="text-blue-600" onClick={() => navigate("/forgot-password")}>
+            <div className="text-center">
+              <Button type="button" variant="link" className="text-blue-600" onClick={() => navigate("/forgot-password")}>
                 Forgot password?
               </Button>
-            </div> */}
+            </div>
           </form>
         </div>
       </div>

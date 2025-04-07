@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react"; // added spinner icon
 import { Button } from "../components/ui/button";
 import {
   Card,
@@ -29,6 +29,8 @@ export default function ProgressPage() {
     rank: 2,
   });
   const [leaderboardData, setLeaderboardData] = useState<LeaderboardUser[]>([]);
+  const [progressLoading, setProgressLoading] = useState(true);
+  const [leaderboardLoading, setLeaderboardLoading] = useState(true);
 
   useEffect(() => {
     const fetchProgress = async () => {
@@ -44,8 +46,14 @@ export default function ProgressPage() {
         }
       } catch (error) {
         console.error("Error fetching progress:", error);
+      } finally {
+        setProgressLoading(false);
       }
     };
+
+    // Call immediately then poll every 10 seconds for dynamic updates
+    fetchProgress();
+    const progressInterval = setInterval(fetchProgress, 10000);
 
     const fetchLeaderboard = async () => {
       try {
@@ -55,11 +63,15 @@ export default function ProgressPage() {
         }
       } catch (error) {
         console.error("Error fetching leaderboard:", error);
+      } finally {
+        setLeaderboardLoading(false);
       }
     };
 
-    fetchProgress();
+    // Initial fetch for leaderboard (static)
     fetchLeaderboard();
+
+    return () => clearInterval(progressInterval);
   }, []);
 
   return (
@@ -81,13 +93,22 @@ export default function ProgressPage() {
             <CardTitle>Overall Progress</CardTitle>
           </CardHeader>
           <CardContent>
-            <Progress
-              value={progressData.overallProgress}
-              className="h-4 mb-2"
-            />
-            <p className="text-sm text-gray-500">
-              You've completed {progressData.overallProgress}% of the course
-            </p>
+            {progressLoading ? (
+              <div className="flex items-center">
+                <Loader2 className="animate-spin h-6 w-6 mr-2" />
+                <span>Loading progress...</span>
+              </div>
+            ) : (
+              <>
+                <Progress
+                  value={progressData.overallProgress}
+                  className="h-4 mb-2"
+                />
+                <p className="text-sm text-gray-500">
+                  You've completed {progressData.overallProgress}% of the course
+                </p>
+              </>
+            )}
           </CardContent>
         </Card>
 
@@ -98,26 +119,33 @@ export default function ProgressPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-1">
-              {leaderboardData.map((user) => (
-                <div
-                  key={user.rank}
-                  className={`flex items-center justify-between p-2 rounded-md ${
-                    user.name.includes("(You)")
-                      ? "bg-blue-600 text-white"
-                      : user.rank === 1
-                      ? "bg-blue-100"
-                      : ""
-                  }`}
-                >
-                  <div className="flex items-center">
-                    <span className="w-6 text-center">{user.rank}</span>
-                    <span className="ml-4">{user.name}</span>
+            {leaderboardLoading ? (
+              <div className="flex items-center">
+                <Loader2 className="animate-spin h-6 w-6 mr-2" />
+                <span>Loading leaderboard...</span>
+              </div>
+            ) : (
+              <div className="space-y-1">
+                {leaderboardData.map((user) => (
+                  <div
+                    key={user.rank}
+                    className={`flex items-center justify-between p-2 rounded-md ${
+                      user.name.includes("(You)")
+                        ? "bg-blue-600 text-white"
+                        : user.rank === 1
+                        ? "bg-blue-100"
+                        : ""
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      <span className="w-6 text-center">{user.rank}</span>
+                      <span className="ml-4">{user.name}</span>
+                    </div>
+                    <span>{user.points}</span>
                   </div>
-                  <span>{user.points}</span>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

@@ -9,6 +9,7 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { register } from "@/api/auth";
+import { useUserStore } from "@/store/User/user";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -17,7 +18,9 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [fullName, setFullName] = useState("");
-  const [primaryLanguage, setPrimaryLanguage] = useState<"english" | "chinese">("english");
+  const primaryLanguage = "chinese"; // Default value for primaryLanguage
+
+  const {setUser} = useUserStore();
 
   const handleRegister = async (e: React.FormEvent) => {
     try {
@@ -33,6 +36,7 @@ export default function RegisterPage() {
 
       if (response.success) {
         navigate("/courses");
+        setUser(response.user??null);
       } else {
         setError(response.message || "Registration failed");
       }
@@ -71,7 +75,7 @@ export default function RegisterPage() {
               />
             </div>
 
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <Label htmlFor="primaryLanguage" className="text-2xl font-bold">
                 Primary Language
               </Label>
@@ -79,14 +83,14 @@ export default function RegisterPage() {
                 id="primaryLanguage"
                 className="border rounded px-3 py-2"
                 value={primaryLanguage}
-                onChange={(e) => setPrimaryLanguage(e.target.value as "english" | "chinese")}
+                onChange={(e) => setPrimaryLanguage(e.target.value)}
                 required
               >
                 <option value="chinese">Chinese</option>
                 <option value="english">English</option>
                 {/* <option value="urdu">Urdu</option> */}
-              </select>
-            </div>
+              {/* </select>
+            </div> */}
 
             <div className="space-y-2">
               <Label htmlFor="email" className="text-2xl font-bold">

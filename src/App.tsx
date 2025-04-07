@@ -12,6 +12,8 @@ import ProgressPage from "./pages/ProgressPage"
 import PracticePage from "./pages/PracticePage"
 import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import ProfilePage from "./pages/ProfilePage"
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage"
+import TermsPage from "./pages/TermsPage"
 import PrivateRoute from "./components/PrivateRoute"
 import PublicRoute from "./components/PublicRoute"
 import AnimatedPage from "./components/AnimatedPage"
@@ -67,6 +69,22 @@ function App() {
               element={
                 <AnimatedPage>
                   <CourseSelectionPage />
+                </AnimatedPage>
+              }
+            />
+            <Route
+              path="/terms"
+              element={
+                <AnimatedPage>
+                  <TermsPage />
+                </AnimatedPage>
+              }
+            />
+            <Route
+              path="/privacy-policy"
+              element={
+                <AnimatedPage>
+                  <PrivacyPolicyPage />
                 </AnimatedPage>
               }
             />

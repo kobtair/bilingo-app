@@ -3,9 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 
 export type UserState = {
   user: {
-    _id: {
-      $oid: string;
-    }
+    _id: string;
     name: string;
     email: string;
     profileImage: string;

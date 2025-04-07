@@ -8,7 +8,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../compone
 
 // Define the type for a lesson
 interface Lesson {
-  id: number
+  _id: string
   title: string
   description: string
   details: string
@@ -18,7 +18,7 @@ const api = import.meta.env.VITE_BACKEND_API
 
 export default function LessonsPage() {
   const navigate = useNavigate()
-  const { courseId } = useParams<{ courseId: string }>() // Ensure courseId is a string
+  const { id: courseId } = useParams<{ id: string }>() // Ensure courseId is a string
   const [lessons, setLessons] = useState<Lesson[]>([]) // Use Lesson[] as the type for lessons
   const [loading, setLoading] = useState<boolean>(true) // Add loading state
 
@@ -57,7 +57,7 @@ export default function LessonsPage() {
           <p className="text-center text-white text-lg">No lessons available for this course.</p>
         ) : (
           lessons.map((lesson) => (
-            <Card key={lesson.id} className="w-full">
+            <Card key={lesson._id} className="w-full">
               <CardHeader>
                 <CardTitle>{lesson.title}</CardTitle>
                 <p className="text-gray-500">{lesson.description}</p>
@@ -65,7 +65,7 @@ export default function LessonsPage() {
               <CardContent>
                 <Button
                   className="w-full bg-blue-600 hover:bg-blue-700 flex items-center justify-center gap-2"
-                  onClick={() => navigate(`/lessons/${lesson.id}`)}
+                  onClick={() => navigate(`/lessons/${lesson._id}`)}
                 >
                   <Play className="h-5 w-5" />
                   Start Lesson

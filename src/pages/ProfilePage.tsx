@@ -1,4 +1,4 @@
-import { LogOut, CheckCircle} from "lucide-react"
+import { LogOut} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useUserStore } from "@/store/User/user";
 import { useNavigate } from "react-router";
@@ -37,10 +37,10 @@ export default function ProfilePage() {
         </div>
 
         {/* Buttons */}
-        <Button className="w-full bg-blue-500 hover:bg-blue-600 mb-3" variant="default">
+        <Button onClick={()=>navigate("/privacy-policy")} className="w-full bg-blue-500 hover:bg-blue-600 mb-3" variant="default">
           Privacy Policy
         </Button>
-        <Button className="w-full bg-blue-500 hover:bg-blue-600 mb-3" variant="default">
+        <Button onClick={()=>navigate("/terms")} className="w-full bg-blue-500 hover:bg-blue-600 mb-3" variant="default">
           Terms of Service
         </Button>
         <Button onClick={handleLogOut} className="w-full border-red-500 text-red-500 hover:bg-red-50" variant="outline">

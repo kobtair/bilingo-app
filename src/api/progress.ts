@@ -78,3 +78,20 @@ export async function getLeaderboard(): Promise<any> {
   }
 }
 
+export async function completeChapter(email: string, lessonId: number): Promise<{ success: boolean }> {
+  const backendUrl = import.meta.env.VITE_BACKEND_API;
+  try {
+    const response = await fetch(`${backendUrl}/chapter-complete`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, lessonId })
+    });
+    if (response.ok) {
+      return { success: true };
+    }
+    console.error("Chapter completion failed:", response.statusText);
+  } catch (error) {
+    console.error("Error completing chapter:", error);
+  }
+  return { success: false };
+}

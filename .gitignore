@@ -1,4 +1,5 @@
 # Logs
+bilingo_apks
 logs
 *.log
 npm-debug.log*
